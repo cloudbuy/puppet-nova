@@ -123,7 +123,11 @@ class nova::params {
           $spicehtml5proxy_service_name = 'nova-spiceproxy'
           $vncproxy_package_name    = 'nova-novncproxy'
           # some of the services need to be started form the special upstart provider
-          $special_service_provider = 'upstart'
+          if (versioncmp($::lsbdistrelease, '16.04') >= 0) {
+            $special_service_provider = undef
+          } else {
+            $special_service_provider = 'upstart'
+          }
           $libvirt_service_name         = 'libvirt-bin'
         }
       }
